@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <title>Gitengo</title>
 
 </head>
-<body>
-<!-- 
+<body id="body-custom">
+<!--
 Datos de la web:
     - Que es, cual es la actividad a la que se dedica (ventaja competencial)
+    - Quiénes somos (equipo promotor)
     - Mision, vision y valores
     - Quienes sois: Perfil de cada una de las personas que promueven la empresa 
     (breve curriculum: formacion academica, no academica, experiencia, proyeccion profesional). 
@@ -28,7 +28,7 @@ LO QUE NO DEBE INCLUIR EN NINGUN CASO: Herramientas de diagnostico (Pestel, Port
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navbar-new-style" id="navbar-custom">
         <div class="container-fluid">
-            <a class="navbar-brand " href="#"><img src="logo final.png"></a>
+            <a class="navbar-brand" href="#"><img src="logo_final.png" alt="Logo"></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -41,7 +41,7 @@ LO QUE NO DEBE INCLUIR EN NINGUN CASO: Herramientas de diagnostico (Pestel, Port
                         <a class="nav-link active" aria-current="page" href="#management">Organizaci&oacute;n</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#rsc">Responsabilidades</a>
+                        <a class="nav-link active" aria-current="page" href="#rsc">RSC</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#contact">Contacto</a>
@@ -52,17 +52,29 @@ LO QUE NO DEBE INCLUIR EN NINGUN CASO: Herramientas de diagnostico (Pestel, Port
     </nav>
 
 
-    <div id="banner">
-        <img src="logo final.png">
-        <h4>Gitengo</h4>
-        <h3>Tu c&oacute;digo, siempre contigo</h3>
+    <div class="container-fluid" id="banner">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="logo_final.png" alt="Logo">
+                        <h4>Gitengo</h4>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <h3><i>Tu c&oacute;digo, siempre contigo</i></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
     <div class="container">
         
 
-        <div id="desc">
+        <div class="section" id="desc">
             <p>
                 Gitengo es una aplicaci&oacute;n de control de versiones que te permite controlar tu c&oacute;digo 
                 desde el dispositivo que quieras.
@@ -73,27 +85,47 @@ LO QUE NO DEBE INCLUIR EN NINGUN CASO: Herramientas de diagnostico (Pestel, Port
             </ul>
         </div>
 
-        <div id="mission">
+
+        <div class="section" id="mission">
             <h4>Misi&oacute;n</h4>
             <p>En nuestra empresa estamos comprometidos con la accesibilidad y la robustez.
                 Ofrecemos la simplificaci&oacute;n de un proceso importante a quienes emplear una aplicaci&oacute;n 
                 de control de versiones auto-alojada.
             </p>
+            <!--Visión: proyección en el futuro, misión: cómo, valores-->
         </div>
 
-        <div id="members">
+
+        <div class="section" id="members">
             <h4>Miembros</h4>
-            <p>
-                &Aacute;lvaro Espinosa Espinosa, CEO de Gitengo S.Coop.<br>
-                T&eacute;cnico Superior de Desarrollo de Aplicaciones Multiplataforma.<br>
-                3 meses de pr&aacute;ctica en una empresa alemana.<br>
-            </p>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="card">
+                        <div class="row card-body">
+                            <img class="col-sm-3" src="Images/template.png" alt="Photo"/>
+                            <div class="col-sm-9">
+                                <h5 class="card-title">&Aacute;lvaro Espinosa Espinosa, CEO de Gitengo S.Coop.</h5>
+                                <p class="card-text">
+                                    T&eacute;cnico Superior de Desarrollo de Aplicaciones Multiplataforma.<br>
+                                    Experiencia en Java, Kotlin, C++, C# y JavaScript.<br>
+                                    3 meses de pr&aacute;cticas en una empresa alemana.<br>
+                                </p>
+                                <p class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="management">
+        <!--Video-->
+
+
+        <div class="section" id="management">
             <h4>Organizaci&oacute;n</h4>
+            <img src="organigrama.png">
             <p>
-                En Gitengo S.Coop. seguimos un modelo de organizaci&oacute;n informal y un estilo de liderazgo democr&aacute;tico.
+                En Gitengo seguimos un modelo de organizaci&oacute;n informal y un estilo de liderazgo democr&aacute;tico.
                 Porque buscamos que se fomente la productividad de nuestros trabajadores,
                 puedan de compartir sus ideas y que se valore su opini&oacute;n.
             </p>
@@ -102,24 +134,24 @@ LO QUE NO DEBE INCLUIR EN NINGUN CASO: Herramientas de diagnostico (Pestel, Port
                 as&iacute; como la edici&oacute;n y estructurado de c&oacute;digo; 
                 centr&aacute;ndonos en un p&uacute;blico ya familiarizado con la programaci&oacute;n o con inter&eacute;s en ella.
             </p>
-                Nos comprometemos a:
-                <ul>
-                    <li>Facilitar a todas las categor&iacute;as profesionales el acceso a la formaci&oacute;n para aumentar 
-                        las posibilidades de promocionar</li>
-                    <li>Definir de manera transparente y concisa de los complementos salariales en el convenio colectivo 
-                        o acuerdo de empresa.</li>
-                    <li>Impartir la formaci&oacute;n dentro de la jornada laboral y en caso de que no fuera posible, 
-                        facilitar medidas para la atenci&oacute;n de personas dependientes.</li>
-                    <li>Eliminar preguntas de &iacute;ndole personal en las entrevistas de trabajo asegurando que &eacute;stas se relacionan 
-                        exclusivamente con los requerimientos del puesto de trabajo.</li>
-                    <li>Facilitar a todas las categor&iacute;as profesionales el acceso a la formaci&oacute;n 
-                        para aumentar las posibilidades de promocionar</li>
-                </ul>
-            
+            Nos comprometemos a :<!--Medidas de igualdad-->
+            <ul>
+                <li>Facilitar a todas las categor&iacute;as profesionales el acceso a la formaci&oacute;n para aumentar 
+                    las posibilidades de promocionar</li>
+                <li>Definir de manera transparente y concisa de los complementos salariales en el convenio colectivo 
+                    o acuerdo de empresa.</li>
+                <li>Impartir la formaci&oacute;n dentro de la jornada laboral y en caso de que no fuera posible, 
+                    facilitar medidas para la atenci&oacute;n de personas dependientes.</li>
+                <li>Eliminar preguntas de &iacute;ndole personal en las entrevistas de trabajo asegurando que &eacute;stas se relacionan 
+                    exclusivamente con los requerimientos del puesto de trabajo.</li>
+                <li>Facilitar a todas las categor&iacute;as profesionales el acceso a la formaci&oacute;n 
+                    para aumentar las posibilidades de promocionar</li>
+            </ul>
         </div>
 
-        <div id="rsc">
-            <h4>Responsabilidades</h4>
+
+        <div class="section" id="rsc">
+            <h4>RSC</h4>
             <ol>
                 <li>Crear mejores relaciones entre la empresa y proveedores (p&aacute;ginas web), y buscar proveedores  responsables.</li>
                 <li>Promover la protecci&oacute;n del medioambiente y desarrollar acciones para la concienciaci&oacute;n de la sociedad 
@@ -142,8 +174,8 @@ LO QUE NO DEBE INCLUIR EN NINGUN CASO: Herramientas de diagnostico (Pestel, Port
                     <h5>Contacto</h5>
                     <ul class="list-unstyled">
                         <li><i class="bi bi-geo-alt-fill"></i> Av. Nueva Villa 70, M&aacute;laga</li>
-                        <li><i class="bi bi-telephone-fill"></i> +34 965 55 55 55</li>
                         <li><i class="bi bi-envelope-fill"></i> support@gitengo.com</li>
+                        <li><i class="bi bi-telephone-fill"></i> +34 965 55 55 55</li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -158,7 +190,7 @@ LO QUE NO DEBE INCLUIR EN NINGUN CASO: Herramientas de diagnostico (Pestel, Port
             <hr>
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <p class="mb-0">&copy;2025 Gitengo. Todos los derechos reservados.</p>
+                    <p class="mb-0">&copy;2025 Gitengo S.Coop. Todos los derechos reservados.</p>
                 </div>
             </div>
         </div>
