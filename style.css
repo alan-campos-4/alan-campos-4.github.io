@@ -1,0 +1,42 @@
+
+:root {
+    --main-color-1: hsl(262, 100%, 40%);
+    --main-color-2: hsl(262, 40%, 70%);
+}
+
+
+#navbar-custom li a {
+    color: var(--main-color-1);
+}
+#navbar-custom img {
+    height: 35px;
+    margin-left: 10px;
+    vertical-align: top;
+}
+
+
+#banner {
+    margin-top: 60px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+#banner img {
+    height: 150px;
+}
+#banner h4 {
+    font-family: 'Lucida Console', sans-serif;
+    font-weight: bold;
+    color: var(--main-color-1);
+}
+
+
+#desc       {scroll-margin-top: 4em; margin-top: 50px;}
+#mission    {scroll-margin-top: 4em; margin-top: 50px;}
+#members    {scroll-margin-top: 4em; margin-top: 50px;}
+#mission    {scroll-margin-top: 4em; margin-top: 50px;}
+#management {scroll-margin-top: 4em; margin-top: 50px;}
+#rsc        {scroll-margin-top: 4em; margin-top: 50px; margin-bottom: 100px;}
+
+#contact {
+    background-color: var(--main-color-2);
+}
