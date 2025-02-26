@@ -54,7 +54,10 @@
 
 
 #management img {
-    height: 15em;
+    width: 16em;
+}
+#members img {
+    width: 12em;
 }
 
 
@@ -63,4 +66,11 @@
 }
 #contact {
     background-color: var(--main-color-2);
+}
+
+
+
+.dark-mode {
+    background-color: black;
+    color: white;
 }
