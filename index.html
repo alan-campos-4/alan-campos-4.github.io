@@ -23,13 +23,17 @@
 	<link rel="stylesheet" href="/resources/demos/style.css">
 	<script>
 		$( function() {
-			$("#datepicker1").datepicker({
-				dateFormat: 'dd/mm/yy' 
+			$("#datepickerStart1").datepicker({
+				dateFormat: 'dd/mm/yy'
 			});
-		});
-		$( function() {
-			$("#datepicker2").datepicker({
-				dateFormat: 'dd/mm/yy' 
+			$("#datepickerStart2").datepicker({
+				dateFormat: 'dd/mm/yy'
+			});
+			$("#datepickerEnd1").datepicker({
+				dateFormat: 'dd/mm/yy'
+			});
+			$("#datepickerEnd2").datepicker({
+				dateFormat: 'dd/mm/yy'
 			});
 		});
 	</script>
@@ -53,19 +57,60 @@
 <body>
 
 	<div class="container">
-		<h3>Crear evento</h3>
-		Nombre <input type="text" id="eventName1">
-		Fecha <input type="text" id="datepicker1">
-		<button onclick="addEvent()">Crear</button>
 		
-		<br>
+		<h3>Crear evento</h3>
+		<div class="row">
+			<div class="col-9">
+				Name	<input type="text" id="eventName1">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3">
+				Start	<input type="text" id="datepickerStart1">
+			</div>
+			<div class="col-6">
+				Time	<input type="text" id="">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3">
+				End		<input type="text" id="datepickerEnd1">
+			</div>
+			<div class="col-6">
+				Time	<input type="text" id="">
+			</div>
+		</div>
+		<button onclick="addEvent()">Crear</button>
+		<br><br>
+		
 		<h3>Modificar evento</h3>
-		Nombre <input type="text" id="eventName2">
-		Fecha <input type="text" id="datepicker2">
+		<div class="row">
+			<div class="col-9">
+				Name	<input type="text" id="eventName2">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3">
+				Start	<input type="text" id="datepickerStart2">
+			</div>
+			<div class="col-6">
+				Time	<input type="text" id="timeStart2">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3">
+				End		<input type="text" id="datepickerEnd2">
+			</div>
+			<div class="col-6">
+				Time	<input type="text" id="timeEnd2">
+			</div>
+		</div>
 		<button onclick="modifyEvent()">Modificar</button>
+		
 	</div>
-	<br> <hr> <br>
 	
+	<hr>
+	<br><br><br>
 
 	<div id='calendar-container'>
 		<div id='calendar'></div>
@@ -98,7 +143,6 @@
 
 
 
-
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
@@ -107,6 +151,8 @@
 <script>
 
 	var calendar;
+	
+	
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarDiv = document.getElementById('calendar');
 		calendar = new FullCalendar.Calendar(calendarDiv, {
@@ -126,7 +172,6 @@
 				listMonth: { buttonText: 'List Month' },
 				timeGrid: { dayMaxEventRows: 6 },
 			},
-			initialDate: '2025-01-12',
 			navLinks: true, // can click day/week names to navigate views
 			editable: true,
 			selectable: true,
@@ -135,63 +180,68 @@
 			events: [
 				{
 				title: 'All Day Event',
-				start: '2025-01-01',
+				start: '2025-05-01',
 				},
 				{
 				title: 'Long Event',
 				start: '2025-01-07',
-				end: '2025-01-10'
+				end: '2025-05-10'
 				},
 				{
 				groupId: 999,
 				title: 'Repeating Event',
-				start: '2025-01-09T16:00:00'
+				start: '2025-05-09T16:00:00'
 				},
 				{
 				groupId: 999,
 				title: 'Repeating Event',
-				start: '2025-01-16T16:00:00'
+				start: '2025-05-16T16:00:00'
 				},
 				{
 				title: 'Conference',
-				start: '2023-01-11',
-				end: '2025-01-13'
+				start: '2023-05-11',
+				end: '2025-05-13'
 				},
 				{
 				title: 'Meeting',
-				start: '2023-01-12T10:30:00',
-				end: '2025-01-12T12:30:00'
+				start: '2023-05-12T10:30:00',
+				end: '2025-05-12T12:30:00'
 				},
 				{
 				title: 'Lunch',
-				start: '2025-01-12T12:00:00'
+				start: '2025-05-12T12:00:00'
 				},
 				{
 				title: 'Dinner',
-				start: '2025-01-12T20:00:00'
+				start: '2025-05-12T20:00:00'
 				},
 				{
 				title: 'Birthday Party',
-				start: '2025-01-13T07:00:00'
+				start: '2025-05-13T07:00:00'
 				},
 				{
 				title: 'Click for Google',
 				url: 'http://google.com/',
-				start: '2025-01-28'
+				start: '2025-05-28'
 				}
 			],
-			/*eventClick: function(info) {
-				alert('Event: ' + info.event.title+
-				'\nCoordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY+
-				'\nView: ' + info.view.type);
-				info.el.style.borderColor = 'red';
-			}*/
 			eventClick: function(info) {eventOnClick(info)},
 		});
 		calendar.render();
+		
+		setEventID(null);
 	});
 	
 	
+	
+	/*** LocalStorage functions ***/
+	
+	function getEventID()		{return localStorage.getItem('event-id-to-modify');}
+	function setEventID(newID)	{localStorage.setItem('event-id-to-modify', newID);}
+	
+	
+	
+	/*** Modal pop-up ***/
 	
 	function openModal() {
 		var myModal = new bootstrap.Modal(document.getElementById('demo'), {})
@@ -200,52 +250,94 @@
 	
 	
 	
+	/***  Adding Calendar Events ***/
+	
 	function addEvent() {
 		var name = document.getElementById("eventName1").value;
-		var date = $("#datepicker1").datepicker("getDate");
+		var startDate = $("#datepickerStart1").datepicker("getDate");
+		var endDate = $("#datepickerEnd1").datepicker("getDate");
 		
-		console.log($.datepicker.formatDate("yy-mm-dd", date)+' ...  '+name);
-		
-		if (!isNaN(date.valueOf())) {
+		if ( !isNaN(startDate.valueOf()) || !isNaN(endDate.valueOf()) ) {
 			calendar.addEvent({
 				title: name,
-				start: date,
+				start: startDate,
+				end: endDate,
 				allDay: true
 			});
-			alert('Great. Now, update your database...');
+			console.log('Event created.\n Name: ' + name + '\n Start: ' + startDate + '\n End: ' + endDate);
 		} else {
-			alert('Invalid date.');
+			console.log('Event not created.');
 		}
 	};
 	
 	
 	
+	/***  Modifying Calendar Events ***/
+	
 	function eventOnClick(info) {
-		/*alert('Event: ' + info.event.title+
-		'\nCoordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY+
-		'\nView: ' + info.view.type);*/
-		
+		// Display event name in input.
 		document.getElementById("eventName2").value = info.event.title;
-		var date = info.event.start;
-		var date1 = $.datepicker.formatDate("dd/mm/yy", date);
-		$("#datepicker2").datepicker("setDate", date1);
 		
-		console.log('Start: '+date+'\nFormat: '+date1);
+		// Display the dates of the event's start and end in the datepickers.
+		var startDate = $.datepicker.formatDate("dd/mm/yy", info.event.start);
+		var endDate = $.datepicker.formatDate("dd/mm/yy", info.event.end);
+		$("#datepickerStart2").datepicker("setDate", startDate);
+		$("#datepickerEnd2").datepicker("setDate", endDate);
 		
-	}
-
-		/*
-		var date = new Date(dateStr + 'T00:00:00');
-		if (!isNaN(date.valueOf())) { // valid?
-			calendar.addEvent({
-				title: document.getElementById("event_name"),
-				start: date,
-				allDay: true
-			});
-			alert('Great. Now, update your database...');
+		// Display the time of the event's start and end in the input.
+		document.getElementById('timeStart2').value =	toDoubleDigits(info.event.start.getHours()) +':'+ toDoubleDigits(info.event.start.getMinutes());
+		if (info.event.end!=null) {
+			document.getElementById('timeEnd2').value =	toDoubleDigits(info.event.end.getHours()) +':'+ toDoubleDigits(info.event.end.getMinutes());
 		} else {
-			alert('Invalid date.');
-		} */
+			document.getElementById('timeEnd2').value =	'';
+		}
+		
+		// Log the event and save in localStorage for modifying later.
+		console.log('Event selected.\n Name: ' + info.event.title + '\n Start: ' + startDate + '\n End: ' + endDate);
+		setEventID(info.event.id);
+	}
+	
+	function toDoubleDigits(num) {
+		if (num<10) return ('0'+num);
+		else return num;
+	}
+	
+	function modifyEvent() {
+		var event_id = getEventID();
+		if (event_id!=null) {
+			var event = calendar.getEventById(event_id);
+			if (event!=null) {
+				
+				var name = document.getElementById("eventName2").value;
+				var start = $("#datepickerStart2").datepicker("getDate");
+				var end =   $("#datepickerEnd2").datepicker("getDate");
+				
+				let startTime = document.getElementById('timeStart2').value.split(':');
+				let startHour = startTime[0];
+				let startMin = startTime[1];
+				let newStart = new Date(start.getFullYear(), start.getMonth(), start.getDate(), startHour, startMin);
+				event.setStart(newStart);
+				console.log('Event '+name+' changed start to:\n '+newStart);
+				
+				if (end!=null) {
+					let endTime = document.getElementById('timeEnd2').value.split(':');
+					let endHour = endTime[0];
+					let endMin = endTime[1];
+					let newEnd = new Date(end.getFullYear(), end.getMonth(), end.getDate(), endHour, endMin);
+					event.setEnd(newEnd);
+					console.log('Event '+name+' changed end to:\n '+newEnd);
+				}
+			} else {
+				console.log('Event is null');
+			}
+		} else {
+			console.log('Event id not found');
+		}
+	}
+	
+	
+	
+	
 	
 
 </script>
