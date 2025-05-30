@@ -1,159 +1,6 @@
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-
-	<title>Tuvida</title>
-	<meta charset='utf-8'/>
-	
-	<!--Bootstrap CDN-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-		rel="stylesheet"
-		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-		crossorigin="anonymous" />
-	
-	<!--FullCalendar local files-->
-	<link href='dist/codepen.css' rel='stylesheet' />
-	<script src='dist/index.global.js'></script>
-	<script src='dist/codepen.js'></script>
-	
-	<!--JQuery-->
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-	<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="/resources/demos/style.css">
-	<script>
-		$( function() {
-			$("#datepickerStart1").datepicker({
-				dateFormat: 'dd/mm/yy'
-			});
-			$("#datepickerStart2").datepicker({
-				dateFormat: 'dd/mm/yy'
-			});
-			$("#datepickerEnd1").datepicker({
-				dateFormat: 'dd/mm/yy'
-			});
-			$("#datepickerEnd2").datepicker({
-				dateFormat: 'dd/mm/yy'
-			});
-		});
-	</script>
-
-</head>
-<style>
-
-	body {
-		margin: 40px 10px;
-		padding: 0;
-		font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-		font-size: 14px;
-	}
-
-	#calendar {
-		max-width: 1100px;
-		margin: 0 auto;
-	}
-
-</style>
-<body>
-
-	<div class="container">
-		
-		<h3>Crear evento</h3>
-		<div class="row">
-			<div class="col-9">
-				Name	<input type="text" id="eventName1">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-3">
-				Start	<input type="text" id="datepickerStart1">
-			</div>
-			<div class="col-6">
-				Time	<input type="text" id="">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-3">
-				End		<input type="text" id="datepickerEnd1">
-			</div>
-			<div class="col-6">
-				Time	<input type="text" id="">
-			</div>
-		</div>
-		<button onclick="addEvent()">Crear</button>
-		<br><br>
-		
-		<h3>Modificar evento</h3>
-		<div class="row">
-			<div class="col-9">
-				Name	<input type="text" id="eventName2">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-3">
-				Start	<input type="text" id="datepickerStart2">
-			</div>
-			<div class="col-6">
-				Time	<input type="text" id="timeStart2">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-3">
-				End		<input type="text" id="datepickerEnd2">
-			</div>
-			<div class="col-6">
-				Time	<input type="text" id="timeEnd2">
-			</div>
-		</div>
-		<button onclick="modifyEvent()">Modificar</button>
-		
-	</div>
-	
-	<hr>
-	<br><br><br>
-
-	<div id='calendar-container'>
-		<div id='calendar'></div>
-	</div>
-	
-	<!-- Button trigger modal -->
-	<!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="openModal()">
-		Crear evento
-	</button>-->
-	
-	<!-- Add Event Modal -->
-	<!--div class="modal fade" id="demo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel"> Crear evento </h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
-				</div>
-				<div class="modal-body">
-					Nombre <input type="text" name="event_name"><br>
-					Fecha <input type="text" id="datepicker">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-primary" onclick="createEvent()">Crear</button>
-				</div>
-			</div>
-		</div>
-	</div>-->
-
-
-
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-	crossorigin="anonymous">
-</script>
-<script>
-
 	var calendar;
 	
-	
-	document.addEventListener('DOMContentLoaded', function() {
+	function loadCalendar() {
 		var calendarDiv = document.getElementById('calendar');
 		calendar = new FullCalendar.Calendar(calendarDiv, {
 			themeSystem: 'bootstrap5',
@@ -177,7 +24,7 @@
 			selectable: true,
 			nowIndicator: true,
 			dayMaxEventRows: true,
-			events: [
+			/*events: [
 				{
 				title: 'All Day Event',
 				start: '2025-05-01',
@@ -224,13 +71,14 @@
 				url: 'http://google.com/',
 				start: '2025-05-28'
 				}
-			],
+			],*/
 			eventClick: function(info) {eventOnClick(info)},
 		});
 		calendar.render();
+		getEventsFromDatabase();
 		
 		setEventID(null);
-	});
+	};
 	
 	
 	
@@ -257,17 +105,23 @@
 		var startDate = $("#datepickerStart1").datepicker("getDate");
 		var endDate = $("#datepickerEnd1").datepicker("getDate");
 		
-		if ( !isNaN(startDate.valueOf()) || !isNaN(endDate.valueOf()) ) {
-			calendar.addEvent({
-				title: name,
-				start: startDate,
-				end: endDate,
-				allDay: true
-			});
-			console.log('Event created.\n Name: ' + name + '\n Start: ' + startDate + '\n End: ' + endDate);
+		if (startDate!=null && endDate!=null) {
+			if ( !isNaN(startDate.valueOf()) || !isNaN(endDate.valueOf()) ) {
+				calendar.addEvent({
+					title: name,
+					start: startDate,
+					end: endDate,
+					allDay: true
+				});
+				console.log('Event created.\n Name: ' + name + '\n Start: ' + startDate + '\n End: ' + endDate);
+			} else {
+				console.log('Event not created.');
+			}
 		} else {
 			console.log('Event not created.');
 		}
+		
+		//DB
 	};
 	
 	
@@ -295,6 +149,8 @@
 		// Log the event and save in localStorage for modifying later.
 		console.log('Event selected.\n Name: ' + info.event.title + '\n Start: ' + startDate + '\n End: ' + endDate);
 		setEventID(info.event.id);
+		
+		//DB
 	}
 	
 	function toDoubleDigits(num) {
@@ -337,8 +193,9 @@
 	
 	
 	
+	function getEventsFromDatabase() {
+		//
+	}
 	
 	
-
-</script>
-</html>
+	
