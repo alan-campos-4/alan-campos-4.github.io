@@ -1,8 +1,9 @@
 <?php
-	require "db.php";
+	require "connection.php";
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		session_start();
+		$_SESSION['title'] = 'Tuvida';
 		$usu = check_user($_POST['username'], $_POST['password']);
 		if ($usu == false) {
 			$err = true;
@@ -10,7 +11,6 @@
 		} else {
 			$_SESSION['username'] = $_POST['username'];
 			$_SESSION['password'] = $_POST['password'];
-			$_SESSION['title'] = 'Tuvida';
 			header("Location: home.php");
 			exit;
 		}

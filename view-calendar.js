@@ -1,9 +1,13 @@
+
 	var calendar;
 	
+	
+	
 	function loadCalendar() {
-		var calendarDiv = document.getElementById('calendar');
+		var calendarDiv = document.getElementById('calendar-div');
 		calendar = new FullCalendar.Calendar(calendarDiv, {
 			themeSystem: 'bootstrap5',
+			firstDay: 1, //Monday
 			height: 'auto',
 			slotMinTime: '08:00',
 			slotMaxTime: '20:00',
@@ -24,61 +28,14 @@
 			selectable: true,
 			nowIndicator: true,
 			dayMaxEventRows: true,
-			/*events: [
-				{
-				title: 'All Day Event',
-				start: '2025-05-01',
-				},
-				{
-				title: 'Long Event',
-				start: '2025-01-07',
-				end: '2025-05-10'
-				},
-				{
-				groupId: 999,
-				title: 'Repeating Event',
-				start: '2025-05-09T16:00:00'
-				},
-				{
-				groupId: 999,
-				title: 'Repeating Event',
-				start: '2025-05-16T16:00:00'
-				},
-				{
-				title: 'Conference',
-				start: '2023-05-11',
-				end: '2025-05-13'
-				},
-				{
-				title: 'Meeting',
-				start: '2023-05-12T10:30:00',
-				end: '2025-05-12T12:30:00'
-				},
-				{
-				title: 'Lunch',
-				start: '2025-05-12T12:00:00'
-				},
-				{
-				title: 'Dinner',
-				start: '2025-05-12T20:00:00'
-				},
-				{
-				title: 'Birthday Party',
-				start: '2025-05-13T07:00:00'
-				},
-				{
-				title: 'Click for Google',
-				url: 'http://google.com/',
-				start: '2025-05-28'
-				}
-			],*/
+			events: "load.php",
 			eventClick: function(info) {eventOnClick(info)},
 		});
 		calendar.render();
-		getEventsFromDatabase();
 		
 		setEventID(null);
-	};
+	}
+	
 	
 	
 	
@@ -94,34 +51,73 @@
 	function openModal() {
 		var myModal = new bootstrap.Modal(document.getElementById('demo'), {})
 		myModal.toggle()
-	};
+	}
 	
+	
+	/*** Date Formatting functions ***/
+	
+	//Creates a Datetime variable from a Date and a time text.
+	function getDatetime(date, time) {
+		let timeSplit = time.split(':');
+		let hours = timeSplit[0];
+		let mins = timeSplit[1];
+		return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, mins);
+	}
+	//Formats the Datetime variable to be store in the MySQL database.
+	function datetimeToMySQL(date, time) {
+		var formattedDate = getDatetime(date, time);
+		return formattedDate.toISOString().slice(0, 19).replace('T', ' ');
+	}
+	//Checks if the text in the time picker is valid as a time.
+	function isValidTime(time) {
+		let timeSplit = time.split(':');
+		let hours = timeSplit[0];
+		let mins = timeSplit[1];
+		console.log(hours+'...'+mins)
+		if (hours>=0 && hours<=23 && mins>=0 && mins<=59) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	
 	/***  Adding Calendar Events ***/
 	
 	function addEvent() {
-		var name = document.getElementById("eventName1").value;
-		var startDate = $("#datepickerStart1").datepicker("getDate");
-		var endDate = $("#datepickerEnd1").datepicker("getDate");
+		const name = document.getElementById("eventName1").value;
+		const startDate = $("#datepickerStart1").datepicker("getDate");
+		const endDate = $("#datepickerEnd1").datepicker("getDate");
+		const startTime = document.getElementById("timeStart1").value;
+		const endTime = document.getElementById("timeEnd1").value;
 		
-		if (startDate!=null && endDate!=null) {
-			if ( !isNaN(startDate.valueOf()) || !isNaN(endDate.valueOf()) ) {
-				calendar.addEvent({
-					title: name,
-					start: startDate,
-					end: endDate,
-					allDay: true
-				});
-				console.log('Event created.\n Name: ' + name + '\n Start: ' + startDate + '\n End: ' + endDate);
+		if (name!=null) {  //Fails
+			if ( startDate!=null && endDate!=null ) {
+				if (isValidTime(startTime) && isValidTime(endTime)) {
+					
+					const start = datetimeToMySQL(startDate, startTime);
+					const end = datetimeToMySQL(endDate, endTime);
+					//console.log('JS\n Name: '+name+'\nStart: '+start+'\nEnd: '+end);
+					
+					fetch("procesar.php", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded"
+						},
+						body: "action=insert&name="+name+"&start="+start+"&end="+end,
+					})
+					.then(response => response.text())
+					.then(data => {console.log("Respuesta del servidor: \n", data);});
+					
+				} else {
+					alert('Debes introducir una hora válida.');
+				}
 			} else {
-				console.log('Event not created.');
+				alert('Debes introducir una fecha válida.');
 			}
 		} else {
-			console.log('Event not created.');
+			alert('Debes introducir un nombre.');
 		}
-		
-		//DB
 	};
 	
 	
@@ -149,8 +145,6 @@
 		// Log the event and save in localStorage for modifying later.
 		console.log('Event selected.\n Name: ' + info.event.title + '\n Start: ' + startDate + '\n End: ' + endDate);
 		setEventID(info.event.id);
-		
-		//DB
 	}
 	
 	function toDoubleDigits(num) {
@@ -183,6 +177,19 @@
 					event.setEnd(newEnd);
 					console.log('Event '+name+' changed end to:\n '+newEnd);
 				}
+				
+				/*
+				fetch("procesar.php", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					body: "action=insert&name="+name+"&start="+start+"&end="+end,
+				})
+				.then(response => response.text())
+				.then(data => {console.log("Respuesta del servidor: \n", data);});
+				*/
+				
 			} else {
 				console.log('Event is null');
 			}
@@ -190,12 +197,6 @@
 			console.log('Event id not found');
 		}
 	}
-	
-	
-	
-	function getEventsFromDatabase() {
-		//
-	}
-	
-	
-	
+
+
+

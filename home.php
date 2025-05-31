@@ -22,9 +22,9 @@
 	
 		<button onclick="openPage('view-calendar.php')">Calendario</button>
 		<br>
-		<button onclick="openPage()">Notas</button>
+		<button onclick="openPage('view-notes.php')">Notas</button>
 		<br>
-		<button onclick="openPage()">Diario</button>
+		<button onclick="openPage('view-journal.php')">Diario</button>
 		<br>
 		<a href="logout.php">Salir</a>
 		
